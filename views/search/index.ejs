@@ -1,0 +1,114 @@
+
+	<!-- views/search/index.ejs -->
+
+	<!DOCTYPE html>
+	<html lang="en" ng-app='wilco'>
+		<head>
+			<% include ../shared/head %>
+			<title>Search Lead</title>
+		</head>
+		<body class="container">
+
+			<header>
+				<% include ../shared/header %>
+			</header>
+
+			<main>
+				<br />
+				<br />
+
+				<form method="get" role="search" action="/search-lead/search">
+	
+					<div class="form-group row">
+						<div>	   
+							<div class="input-group">
+								<input type="text" class="form-control" title="Search by Product Name" name="word"  placeholder="Search by Product Name">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="submit">Search &raquo;</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+				<div class="row"  ng-controller="ProductCtrl" ng-init="init('<%=search%>')">
+
+				<div ng-cloak>
+
+					<div ng-show="loading">Loading...</div>
+
+						<div ng-hide="loading">
+
+							<tps-pagination	local = "selectpageSize"
+											page-sizes = "pageSizes"
+											on-set-main = "setMainImage(image)"
+											label-prev = "prev" 
+											label-succ = "succ" 
+											label-totalitems = "totalItems"
+											label-currentpage = "currentPage"
+											label-numtotalofpage = "numTotalOfPage"
+											func-prevpage = "prevPage()"
+											func-nextpage = "nextPage()">
+							</tps-pagination>
+						
+								
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in products">
+                <td>
+				<a href="#">
+					<img src="/uploads/{{p.productImageUrl}}" alt="" width="50" height="50" class="img-rounded">
+				</a>
+				</td>
+                <td>{{p.name}}</td>
+                <td>{{p.description}}</td>
+                <td>{{p.category}}</td>
+                <td>{{p.price}}</td>
+                <td align="left">
+                    <a href="#">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+					|
+					<a href="#">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+							<tps-pagination	local = "selectpageSize"
+											page-sizes = "pageSizes"
+											on-set-main = "setMainImage(image)"
+											label-prev = "prev"
+											label-succ = "succ" 
+											label-totalitems = "totalItems"
+											label-currentpage = "currentPage"
+											label-numtotalofpage = "numTotalOfPage"
+											func-prevpage = "prevPage()"
+											func-nextpage = "nextPage()">
+							</tps-pagination>
+
+						</div>
+					</div>
+				</div>
+			</main>
+
+			<footer>
+				<% include ../shared/footer %>
+			</footer>	
+
+			
+		</body>
+	</html>

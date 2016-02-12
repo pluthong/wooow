@@ -1,0 +1,69 @@
+﻿
+<!-- views/signup/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en" ng-app='wilco'>
+<head>
+    <% include ../shared/head %>
+	<title>Sign Up</title>
+	<style>
+		body    { margin:50px; }
+	</style>
+</head>
+<body>
+
+		<!-- form registration -->
+		<div id="loginModal" class="show" tabindex="-1" role="dialog" aria-hidden="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h1 class="text-center">Create account</h1>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="/signup" onsubmit="return validationSignUpForm()" class="form center-block">
+
+							<!-- error message in the box -->
+							<div id="errorShow" style="display:none" class="alert alert-danger alert-dismissible fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<span id="gen_error"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="last_name">First name</label>
+								<input type="text" id="first_name" name="first_name" class="form-control input-lg" placeholder="Fist name">
+							</div>
+							<div class="form-group">
+								<label for="last_name">Last name</label>
+								<input type="text" id="last_name" name="last_name" class="form-control input-lg" placeholder="Last name">
+							</div>
+							<div class="form-group">
+								<label for="join_email">Email</label>
+								<input type="text" id="join_email" name="join_email" class="form-control input-lg" placeholder="Email">
+							</div>
+							<div class="form-group">
+								<label for="join-password">Password (6 or more characters)</label>
+								<input type="password" id="join_password" name="join_password" class="form-control input-lg" placeholder="Password">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary btn-lg btn-block">Join now</button>
+								<span class="pull-right">Already on i-exchange? <a href="/signin">Sign in</a></span><span><a href="#">Need help?</a></span>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<div class="col-md-12">
+							<a href="/">Cancel</a>
+						</div>	
+					</div>
+				</div> <br>
+				<footer>
+					<% include ../shared/footer %>
+				</footer>
+			</div>
+		</div>
+	
+	</body>
+</html>

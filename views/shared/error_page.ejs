@@ -1,0 +1,33 @@
+<!-- views/shared/error_page.ejs -->
+
+<html>
+    <head>
+        <title>Error</title>
+             <!-- Core CSS - Include with every page -->
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+       <link href="../css/back.css" rel="stylesheet">
+    </head>
+    <body style="background:#e7ecee;">
+        
+        <div id="wrapper">
+            
+            <div id="page-wrapper">
+                <div class="row" >
+                    <div class="col-xs-11 col-sm-6 col-md-6 col-md-offset-2">
+                        
+                        <div style="border:1px solid #ddd;padding:30px;background:#fff;text-align:center;">
+                             <h2><i class="fa fa-frown-o fa-2x"></i></h2>
+                             <h3><%= error %></h3>
+            <h2><%= status %></h2>
+            <h4><a href="/">Go Back</a></h4>
+                        </div>
+                     </div>
+                </div>
+             </div>
+        </div>
+      <!--  
+     <script src="../js/jquery-1.10.2.min.js"></script>-->
+    <script src="../js/bootstrap.js"></script>   
+    </body>    
+</html>

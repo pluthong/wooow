@@ -1,0 +1,25 @@
+{
+  "name": "mvcnodejs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "bookshelf": "*",
+    "bcrypt-nodejs": "*",
+    "cookie-parser": "*",
+    "crypto": "*",
+    "ejs": "*",
+    "express-session": "*",
+    "express": "*",
+    "jasmine-node": "*",
+    "multer": "*",
+    "mysql": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "serve-favicon": "*",
+    "underscore": "*"
+  }
+}

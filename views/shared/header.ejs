@@ -1,0 +1,59 @@
+﻿<!-- views/shared/header.ejs -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top ">
+  <div class="container" ng-controller="NavCtrl">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">i-exchange</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <!--<li ng-class="getClass('/')">
+          <a  href="/">Home</a>
+        </li>-->
+        
+        <% if(typeof user == "undefined"){  %>
+        <li ng-class="getClass('/signup')">
+          <a href="/signup">Join today</a>
+        </li>
+        <li ng-class="getClass('/signin')">
+          <a href="/signin">Sign In</a>
+        </li>
+        <% } %>
+          
+        <% if(typeof user != "undefined"){  %>
+        <li ng-class="getClass('/lead')">
+          <a  href="/lead">New Product</a>
+        </li>
+        <li ng-class="getClass('/search-lead')">
+          <a href="/search-lead">Search product</a>
+        </li>
+        
+        <li class="dropdown">
+          <ul class="nav navbar-nav navbar-right ">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle hoverClass" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>  <%= typeof user != "undefined" ? user.lastName : "" %> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/signout" title="sign out">sign out</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+          <% } %>
+      </ul>
+
+
+
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+﻿    <ul class="pagination">
+
+        <li>
+            <span>
+                Shows
+                <select ng-model="local" ng-change="setmain(local)" ng-options="i.pageSize for i in pageSizes"></select>
+                by page
+            </span>
+        </li>
+
+        <li><span>  {{labelPrev}} - {{labelSucc}} of {{labelTotalitems}}</span></li>
+        <li ng-class="{disabled: labelCurrentpage == 0}">
+            <a href="#content" data-toggle="tooltip" data-placement="top" title="Newer" ng-click="onPrevPage()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        </li>
+        <li ng-class="{disabled: labelCurrentpage == labelNumtotalofpage - 1}">
+            <a href="#content" data-toggle="tooltip" data-placement="top" title="Older" ng-click="onNextPage()"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </li>
+    </ul>
+

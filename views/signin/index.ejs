@@ -1,0 +1,61 @@
+﻿
+<!-- views/signin/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en" ng-app='wilco'>
+<head>
+    <% include ../shared/head %>
+	<title>Sign In</title>
+	<style>
+		body    { margin:50px; }
+	</style>
+</head>
+<body>
+
+		<!-- form login -->
+		<div id="loginModal" class="show" tabindex="-1" role="dialog" aria-hidden="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h1 class="text-center">Sign In</h1>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="/signin" onsubmit="return validationSignInForm()" class="form center-block">
+
+							<!-- error message in the box -->
+							<div id="errorShow" style="display:none" class="alert alert-danger alert-dismissible fade in" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<span id="gen_error"></span>
+							</div>
+
+						    <input type="hidden" name="err_mess" id="err_mess" value="<%= typeof errorMessage != "undefined" ? errorMessage : "" %>" />
+
+							<div class="form-group">
+								<input type="text" id="join_email" name="join_email" class="form-control input-lg" value="<%= typeof view_email == "undefined" ? "" : view_email %>" placeholder="Email">
+							</div>
+							<div class="form-group">
+								<input type="password"  id="join_password" name="join_password" class="form-control input-lg" placeholder="Password">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary btn-lg btn-block">Sign In</button>
+								<span class="pull-right"><a href="/signup">Register</a></span><span><a href="#">Need help?</a></span>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<div class="col-md-12">
+							<a href="/">Cancel</a>
+						</div>	
+					</div>
+				</div> <br>
+				<footer>
+					<% include ../shared/footer %>
+				</footer>
+			</div>
+		</div>
+	
+	</body>
+</html>
