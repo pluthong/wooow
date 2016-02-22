@@ -117,7 +117,7 @@ router.post('/lead/save-lead', upload.any(), function (req, res, next) {
        saveProduct.save().then(function (model) {
            // sign in the newly registered user
            //signInPost(req, res, next);
-           res.render('product/index', { successMessage: 'product successfully added',user:user });
+           res.render('product/create', { successMessage: 'product successfully added',user:user });
        });
        // }
 
