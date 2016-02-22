@@ -2,22 +2,24 @@
 <!-- views/home/index.ejs -->
 
 <!DOCTYPE html>
-<html lang="en" ng-app='wilco'>
+<html lang="en" ng-app='iexchangeApp'>
 <head>
-    <% include ../shared/head %>
+    <% include ../shared/header %>
 	<title>Home</title>
 </head>
 <body class="container">
 
     <header>
-        <% include ../shared/header %>
+        <% include ../shared/navbar %>
     </header>
 	<br>
 	<br>
 	<br>
 	<br>
 	
-      <h1>exchange your product ... to be coming soon</h1>
+    <div class="view-container">
+		<div ng-view class="view-frame"></div>
+	</div>
 
     <br>
 	<br>

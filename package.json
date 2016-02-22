@@ -6,9 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt-nodejs": "*",
     "body-parser": "*",
     "bookshelf": "*",
-    "bcrypt-nodejs": "*",
+    "bower": "*",
     "cookie-parser": "*",
     "crypto": "*",
     "ejs": "*",

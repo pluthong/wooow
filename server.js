@@ -89,6 +89,7 @@ app.use(passport.session());
 app.use('/', routeconfig);
 app.use('/lead', routeconfig);
 app.use('/lead/:id', routeconfig);
+app.use('/products/:productId', routeconfig);
 app.use('/lead/save-lead', routeconfig);
 app.use('/search-lead', routeconfig);
 app.use('/search-lead/list', routeconfig);
@@ -97,6 +98,7 @@ app.use('/about', routeconfig);
 app.use('/signup', routeconfig);
 app.use('/signin', routeconfig);
 app.use('/signin/:email', routeconfig);
+app.use('/products/list', routeconfig);
 
 
 // development error handler

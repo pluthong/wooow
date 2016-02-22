@@ -1,59 +1,34 @@
 ﻿<!-- views/shared/header.ejs -->
 
-<nav class="navbar navbar-inverse navbar-fixed-top ">
-  <div class="container" ng-controller="NavCtrl">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">i-exchange</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <!--<li ng-class="getClass('/')">
-          <a  href="/">Home</a>
-        </li>-->
-        
-        <% if(typeof user == "undefined"){  %>
-        <li ng-class="getClass('/signup')">
-          <a href="/signup">Join today</a>
-        </li>
-        <li ng-class="getClass('/signin')">
-          <a href="/signin">Sign In</a>
-        </li>
-        <% } %>
-          
-        <% if(typeof user != "undefined"){  %>
-        <li ng-class="getClass('/lead')">
-          <a  href="/lead">New Product</a>
-        </li>
-        <li ng-class="getClass('/search-lead')">
-          <a href="/search-lead">Search product</a>
-        </li>
-        
-        <li class="dropdown">
-          <ul class="nav navbar-nav navbar-right ">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle hoverClass" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-user"></span>  <%= typeof user != "undefined" ? user.lastName : "" %> <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="/signout" title="sign out">sign out</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-          <% } %>
-      </ul>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/carousel.css">
+  <link rel="stylesheet" href="../css/login.css">
+
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.js"></script>
+  <script src="../bower_components/angular-route/angular-route.js"></script>
+  <script src="../bower_components/angular-resource/angular-resource.js"></script>
+  <script src="../js/app/app.js"></script>
+  <script src="../js/app/animations.js"></script>
+  <script src="../js/app/controllers.js"></script>
+  <script src="../js/app/directives.js"></script>
+  <script src="../js/app/services.js"></script>
+  <script src="../js/app/filters.js"></script>
+    
+<style>
+  body  {
+  padding-top:50px;
+  background: white;    
+  }
+ 
+</style>
 
 
-
-    </div>
-    <!--/.nav-collapse -->
-  </div>
-</nav>

@@ -2,15 +2,15 @@
 	<!-- views/search/index.ejs -->
 
 	<!DOCTYPE html>
-	<html lang="en" ng-app='wilco'>
+	<html lang="en" ng-app='iexchangeApp'>
 		<head>
-			<% include ../shared/head %>
+			<% include ../shared/header %>
 			<title>Search Lead</title>
 		</head>
 		<body class="container">
 
 			<header>
-				<% include ../shared/header %>
+				<% include ../shared/navbar %>
 			</header>
 
 			<main>
@@ -32,7 +32,7 @@
 
 				</form>
 
-				<div class="row"  ng-controller="ProductCtrl" ng-init="init('<%=search%>')">
+				<div class="row" ng-controller="CustomerProductCtrl" ng-init="init('<%=search%>')">
 
 				<div ng-cloak>
 
@@ -52,41 +52,44 @@
 											func-nextpage = "nextPage()">
 							</tps-pagination>
 						
-								
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Photo</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="p in products">
-                <td>
-				<a href="#">
-					<img src="/uploads/{{p.productImageUrl}}" alt="" width="50" height="50" class="img-rounded">
-				</a>
-				</td>
-                <td>{{p.name}}</td>
-                <td>{{p.description}}</td>
-                <td>{{p.category}}</td>
-                <td>{{p.price}}</td>
-                <td align="left">
-                    <a href="#">
-						<span class="glyphicon glyphicon-pencil"></span>
-					</a>
-					|
-					<a href="#">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+							<table class="table">
+									<thead>
+										<tr>
+											<th>Photo</th>
+											<th>Name</th>
+											<th>Description</th>
+											<th>Category</th>
+											<th>Price</th>
+											<th style="width:100px">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="p in products">
+											<td>
+												<a href="#">
+													<img src="/uploads/{{p.productImageUrl}}" alt="" width="50" height="50" class="img-rounded">
+												</a>
+											</td>
+											<td>{{p.name}}</td>
+											<td>{{p.description}}</td>
+											<td>{{p.category}}</td>
+											<td>{{p.price}}</td>
+											<td align="left">
+												<a href="#">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</a>
+												|
+												<a href="#">
+													<span class="glyphicon glyphicon-picture"></span>
+												</a>
+												|
+												<a href="#">
+													<span class="glyphicon glyphicon-trash"></span>
+												</a>
+											</td>
+										</tr>
+									</tbody>
+							</table>
 
 							<tps-pagination	local = "selectpageSize"
 											page-sizes = "pageSizes"

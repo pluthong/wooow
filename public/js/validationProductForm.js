@@ -4,7 +4,7 @@ function validationProductForm() {
     var price = document.getElementById("price").value;
     var category = document.getElementById("category").value;
     var productimage = document.getElementById("productimage").value;
-    var priceReg = /^-?(\d{1,3})(\.\d{1,2})?$/;
+    var priceReg = /^-?(\d{1,6})(\.\d{1,2})?$/;
 
     $("#errorShow").hide()
 

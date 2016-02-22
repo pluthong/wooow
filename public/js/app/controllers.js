@@ -1,7 +1,14 @@
-﻿
-/* Lead Controller */
+﻿'use strict';
 
-angular.module('leadMod', []).controller('ProductCtrl', ['$scope', '$http','$timeout', function ($scope, $http, $timeout) {
+/* Controllers */
+
+var iexchangeControllers = angular.module('iexchangeControllers', []);
+
+
+
+/* Product Controller */
+
+iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
     // data initialisation
     $scope.init = function (wd) {
@@ -27,13 +34,12 @@ angular.module('leadMod', []).controller('ProductCtrl', ['$scope', '$http','$tim
     $scope.pageDimension = 0;
     $scope.ind = 0;
 
-    // get leads
+    // get products
     $scope.getProducts = function (func) {
 
         var data = { search: $scope.search, page: ($scope.currentPage + 1), itemsByPage: $scope.selectpageSize.pageSize };
-    
+
         $http({ method: 'POST', url: '/search-lead/list', data: data }).success(function (res) {
-            console.log(res.data);
             $scope.products = res.data;
             $scope.totalItems = res.NumItems;
             $scope.currentPage = res.CurrentP - 1;
@@ -85,7 +91,7 @@ angular.module('leadMod', []).controller('ProductCtrl', ['$scope', '$http','$tim
     };
 
     $scope.formatPhone = function (phone) {
-       return phone.substring(0, 3) + "-" + phone.substring(3, 6) + "-" + phone.substring(6, 10);
+        return phone.substring(0, 3) + "-" + phone.substring(3, 6) + "-" + phone.substring(6, 10);
     };
 
     $scope.setMainImage = function (image) {
@@ -96,3 +102,53 @@ angular.module('leadMod', []).controller('ProductCtrl', ['$scope', '$http','$tim
     };
 
 }]);
+
+
+
+/* HighLight Controller */
+
+iexchangeControllers.controller('HighlightCtrl', ['$scope', '$location', function ($scope, $location) {
+
+    $scope.getClass = function (action) {
+
+        var protocol = $location.protocol();
+        var host = $location.host();
+        var port = $location.port();
+        var url = "";
+
+
+        if (port > 0) {
+            url = protocol + "://" + host + ":" + port;
+        }
+        else {
+            url = protocol + "://" + host;
+        }
+
+
+        var absurl = $location.absUrl();
+        var substr = absurl.substr(url.length, action.length);
+
+        if (substr === action) {
+            if (substr == '/' && url.length + 2 < absurl.length)
+                return ''
+            return 'active';
+        } else {
+            return '';
+        }
+
+    }
+}]);
+
+
+iexchangeControllers.controller('ProductListCtrl', ['$scope', 'Product',
+  function ($scope, Product) {
+      $scope.products = Product.query();
+      $scope.orderProp = 'age';
+  }]);
+
+
+iexchangeControllers.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Product',
+  function ($scope, $routeParams, Product) {
+      $scope.product = Product.get({ productId: $routeParams.productId }, function (product) {
+      });
+  }]);

@@ -21,7 +21,6 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         crypto.pseudoRandomBytes(16, function (err, raw) {
             if (err) return cb(err)
-
             cb(null, raw.toString('hex') + path.extname(file.originalname))
         })
     }
@@ -33,10 +32,6 @@ var upload = multer({ storage: storage });
 // example : http://localhost:3000
 router.get('/', function (req, res, next) {
 
-    //if (!req.isAuthenticated()) {
-    //    res.redirect('/signin');
-    //} else {
-
         var user = req.user;
 
         if (user !== undefined) {
@@ -44,15 +39,11 @@ router.get('/', function (req, res, next) {
         }
 
         res.render('home/index', { title: 'Home', user: user });
-       // Home.run(req, res, next);
-    //}
 });
 
 /* GET create form for lead */
-// example : http://localhost:3000/lead
+// example : http://localhost:3000/#/lead
 router.get('/lead', function (req, res, next) {
-   // Lead.run(req, res, next);
-  
 
     if (req.isAuthenticated()) {
         var user = req.user;
@@ -61,17 +52,33 @@ router.get('/lead', function (req, res, next) {
             user = user.toJSON();
         }
 
-        res.render('lead/index', {  user: user });
+        res.render('product/create', { user: user });
     } else {
         res.render('signin/index');
     }
 });
 
+/* GET JSON product list */
+// example : http://localhost:3000/product/list
+router.get('/products/list', function (req, res, next) {
+    new Model.Product().fetchAll().then(function (data) {
+        res.end(JSON.stringify(data));
+    })
+});
 
 /* GET create form for lead */
 // example : http://localhost:3000/lead/id
 router.get('/lead/:id', function (req, res, next) {
     Lead.run(req, res, next);
+});
+
+/* GET create form for lead */
+// example : http://localhost:3000/products/id
+router.get('/products/:productId', function (req, res, next) {
+    new Model.Product({ productId: req.params.productId }).fetch().then(function (data) {
+        console.log(JSON.stringify(data));
+        res.end(JSON.stringify(data));
+    })
 });
 
 /* POST form for lead */
@@ -110,7 +117,7 @@ router.post('/lead/save-lead', upload.any(), function (req, res, next) {
        saveProduct.save().then(function (model) {
            // sign in the newly registered user
            //signInPost(req, res, next);
-           res.render('lead/index', { successMessage: 'product successfully added',user:user });
+           res.render('product/index', { successMessage: 'product successfully added',user:user });
        });
        // }
 
@@ -119,7 +126,6 @@ router.post('/lead/save-lead', upload.any(), function (req, res, next) {
        res.render('signin/index');
    }
     });
-
 
 /* Get search view for lead */
 // example : http://localhost:3000/search-lead
@@ -150,29 +156,25 @@ router.get('/about', function (req, res, next) {
     About.run(req, res, next);
 });
 
-/* GET signin page. */
+/* GET signin form. */
 // example : http://localhost:3000/signin
 router.get('/signin', function (req, res, next) {
-
     if (req.isAuthenticated())
         res.redirect('/');
     else
         res.render('signin/index');
-       // SignIn.run(req, res, next);
 });
 
-/* GET signin page. */
+/* GET signin form after registration */
 // example : http://localhost:3000/signin
 router.get('/signin/:email', function (req, res, next) {
-
     if (req.isAuthenticated())
         res.redirect('/');
     else
         res.render('signin/index', { view_email: req.params.email });
-       // SignIn.run(req, res, next);
 });
 
-/* POST signin page. */
+/* POST signin form. */
 // example : http://localhost:3000/signin
 router.post('/signin', function (req, res, next) {
     //  SigninPOST.run(req, res, next);
@@ -204,7 +206,6 @@ router.post('/signin', function (req, res, next) {
 /* GET sign up form */
 // example : http://localhost:3000/signup
 router.get('/signup', function (req, res, next) {
-    // SignUp.run(req, res, next);
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
@@ -215,7 +216,6 @@ router.get('/signup', function (req, res, next) {
 /* POST sign up form */
 // example : http://localhost:3000/signup/
 router.post('/signup', function (req, res, next) {
-    // SignupPOST.run(req, res, next);
     var user = JSON.parse(JSON.stringify(req.body));
     var usernamePromise = null;
     usernamePromise = new Model.User({ email: user.join_email }).fetch();
@@ -239,9 +239,7 @@ router.post('/signup', function (req, res, next) {
             });
         }
     });
-
 });
-
 
 router.get('/signout', function (req, res, next) {
     if (!req.isAuthenticated()) {

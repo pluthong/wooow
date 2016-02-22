@@ -1,9 +1,10 @@
-﻿
+﻿'use strict';
 
 /* Custom directive tpsPagination */
-var imagemod = angular.module("pagDir", []);
 
-imagemod.directive('tpsPagination', function () {
+var iexchangeDirectives = angular.module("iexchangeDirectives", []);
+
+iexchangeDirectives.directive('tpsPagination', function () {
     return {
         restrict: 'E',
         scope: {
@@ -18,7 +19,7 @@ imagemod.directive('tpsPagination', function () {
             funcPrevpage: '&',
             funcNextpage: '&'
         },
-        templateUrl: '/Template/pagination.html',
+        templateUrl: '/template/pagination.html',
         link: function (scope, element, attrs) {
 
             scope.$on("DATAREADY", function () {
