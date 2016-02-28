@@ -1,0 +1,121 @@
+
+	<!-- views/manage/index.ejs -->
+
+	<!DOCTYPE html>
+	<html lang="en" ng-app='iexchangeApp'>
+		<head>
+			<% include ../shared/header %>
+			<title>Search Lead</title>
+		</head>
+		<body class="container">
+
+			<header>
+				<% include ../shared/navbar %>
+			</header>
+
+			<main>
+				<br />
+				<br />
+
+				<form method="get" role="search" action="/search-lead/search">
+	
+					<div class="form-group row">
+						<div>	   
+							<div class="input-group">
+								<input type="text" class="form-control" title="earch by Product Name" name="word"  placeholder="new feature soon... Search productS">
+								<span class="input-group-btn">
+									<button class="btn btn-primary disabled" type="submit">Search &raquo;</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+				<div class="row" ng-controller="CustomerProductCtrl" ng-init="init('<%=search%>')">
+
+				<div ng-cloak>
+					
+					<div ng-show="loading">Loading...</div>
+				
+						<div ng-hide="loading">
+							<div ng-if="totalItems > 0">
+								<tps-pagination	label-prev = "prev" 
+												label-succ = "succ" 
+												label-totalitems = "totalItems"
+												label-currentpage = "currentPage"
+												label-numtotalofpage = "numTotalOfPage"
+												page-size-value = "selectpageSize"
+												page-sizes = "pageSizes"
+												func-selected-item-changed = "selectedItemChanged(ItemChanged)"
+												func-prevpage = "prevPage()"
+												func-nextpage = "nextPage()">
+								</tps-pagination>
+						
+								<table class="table">
+										<thead>
+											<tr>
+												<th>Photo</th>
+												<th>Name</th>
+												<th>Description</th>
+												<th>Category</th>
+												<th>Price</th>
+												<th style="width:100px">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="p in products">
+												<td>
+													<a href="#">
+														<img src="/uploads/{{p.productImageUrl}}" alt="" width="50" height="50" class="img-rounded">
+													</a>
+												</td>
+												<td>{{p.name}}</td>
+												<td>{{p.description}}</td>
+												<td>{{p.category}}</td>
+												<td>{{p.price}}</td>
+												<td align="left">
+													<a href="#">
+														<span class="glyphicon glyphicon-pencil"></span>
+													</a>
+													|
+													<a href="#">
+														<span class="glyphicon glyphicon-picture"></span>
+													</a>
+													|
+													<a href="#">
+														<span class="glyphicon glyphicon-trash"></span>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+								</table>
+
+								<tps-pagination	label-prev = "prev"
+												label-succ = "succ" 
+												label-totalitems = "totalItems"
+												label-currentpage = "currentPage"
+												label-numtotalofpage = "numTotalOfPage"
+												page-size-value = "selectpageSize"
+												page-sizes = "pageSizes"
+												func-selected-item-changed = "selectedItemChanged(ItemChanged)"
+												func-prevpage = "prevPage()"
+												func-nextpage = "nextPage()">
+								</tps-pagination>
+							</div>
+							<div ng-if="totalItems < 1">
+								<div id="er-ht">Insert your new product now</div>
+								<a href="/product-new" class="btn btn-primary btn-large">Get Started...</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+
+			<footer>
+				<% include ../shared/footer %>
+			</footer>	
+
+			
+		</body>
+	</html>

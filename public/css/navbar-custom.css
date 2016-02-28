@@ -1,0 +1,63 @@
+﻿.navbar-custom {
+    background-color: #fff;
+    color: #000;
+    border-radius: 0;
+    border-bottom: solid 1px #f1f1f1;
+}
+
+    .navbar-custom .navbar-nav > li > a {
+        color: #000;
+    }
+
+    .navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+        color: #000;
+        background-color: transparent;
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #000;
+        line-height: 0px;
+    }
+
+    .navbar-custom .navbar-nav > .active, .navbar-custom .navbar-nav > .active > a {
+        border-bottom: 2px solid #4285f4;
+        font-weight:  bold;
+        color: #4285f4;
+    }
+
+    
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background: none;
+}
+
+.brand-1 {
+    font-size: 20px;
+    color: green;
+    font-weight: bold;
+}
+
+.brand-2 {
+    font-size: 30px;
+    color: red;
+    font-weight: bold;
+}
+
+.brand-3 {
+    font-size: 50px;
+    font-family: Georgia;
+    color: gold;
+    font-weight: bold;
+}
+
+.brand-4 {
+    font-size: 30px;
+    color: blue;
+    font-weight: bold;
+}
+
+.brand-5 {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
