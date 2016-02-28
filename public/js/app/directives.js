@@ -19,7 +19,7 @@ iexchangeDirectives.directive('tpsPagination', function () {
             funcPrevpage: '&',
             funcNextpage: '&'
         },
-        templateUrl: '/template/pagination.html',
+        templateUrl: '/Template/pagination.html',
         link: function (scope, element, attrs) {
 
             scope.$on("DATAREADY", function () {
