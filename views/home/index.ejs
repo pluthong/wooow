@@ -17,8 +17,34 @@
 	<br>
 	<br>
 	
-    <div class="view-container">
+	<!-- <div class="view-container">
 		<div ng-view class="view-frame"></div>
+	</div>  -->
+
+	<div class="row" ng-controller="ProductListCtrl" ng-init="init('')"> 
+
+		<div ng-cloak>
+
+			<div ng-show="loading">Loading...</div>
+			<div ng-hide="loading">
+
+					<div ng-include="'/partials/product-list.html'"></div>
+
+					<tps-pagination	label-prev = "prev" 
+											label-succ = "succ" 
+											label-totalitems = "totalItems"
+											label-currentpage = "currentPage"
+											label-numtotalofpage = "numTotalOfPage"
+											page-size-value = "selectpageSize"
+											page-sizes = "pageSizes"
+											func-selected-item-changed = "selectedItemChanged(ItemChanged)"
+											func-prevpage = "prevPage()"
+											func-nextpage = "nextPage()">
+					</tps-pagination>
+			</div>
+
+		</div>
+
 	</div>
 
     <br>

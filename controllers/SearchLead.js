@@ -15,7 +15,7 @@ module.exports = BaseController.extend({
 
         var customerId = user.customerId;
 
-        var v = new View(res, 'search/index');
+        var v = new View(res, 'manage/index');
 
         if (req.query.word) {
             var params = {
@@ -42,11 +42,14 @@ module.exports = BaseController.extend({
 
         var customerId = user.customerId;
         
-        var v = new View(res, 'search/index');
+        var v = new View(res, 'manage/index');
         var w = req.body.search;
+
         var page = req.body.page;
         var itemsByPage = req.body.itemsByPage;
+
         console.log("page :" + page + ", itemsByPage :" + itemsByPage);
+
         if (w == "") {
             this.list(page, itemsByPage, customerId, function (obj) {
                 v.json(obj);

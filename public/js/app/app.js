@@ -11,15 +11,15 @@ var iexchangeApp = angular.module('iexchangeApp', [
     'iexchangeServices'
 ]);
 
-iexchangeApp.config(['$routeProvider', '$locationProvider',
-  function ($routeProvider, $locationProvider) {
-      $routeProvider.
-        when('/', {
-            templateUrl: '/partials/product-list.html',
-            controller: 'ProductListCtrl'
-        }).
-        when('/products/:productId', {
-            templateUrl: '/partials/product-detail.html',
-            controller: 'ProductDetailCtrl'
-        });
-  }]);
+//iexchangeApp.config(['$routeProvider', '$locationProvider',
+//  function ($routeProvider, $locationProvider) {
+//      $routeProvider.
+//        when('/', {
+//            templateUrl: '/partials/product-list.html',
+//            controller: 'ProductListCtrl'
+//        }).
+//        when('/products/:productId', {
+//            templateUrl: '/partials/product-detail.html',
+//            controller: 'ProductDetailCtrl'
+//        });
+//  }]);

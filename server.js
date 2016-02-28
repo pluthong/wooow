@@ -20,8 +20,8 @@ var bcrypt = require('bcrypt-nodejs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routeconfig = require('./routes/routeconfig');
-
 var Model = require('./model');
+
 /**
  * Setup main environments.
  */
@@ -78,7 +78,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
 // Initialize Passport and restore authentication state, if any, from the
@@ -86,19 +85,19 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routeconfig);
-app.use('/lead', routeconfig);
-app.use('/lead/:id', routeconfig);
-app.use('/products/:productId', routeconfig);
-app.use('/lead/save-lead', routeconfig);
-app.use('/search-lead', routeconfig);
-app.use('/search-lead/list', routeconfig);
-app.use('/search-lead/:search?', routeconfig);
-app.use('/about', routeconfig);
-app.use('/signup', routeconfig);
-app.use('/signin', routeconfig);
-app.use('/signin/:email', routeconfig);
-app.use('/products/list', routeconfig);
+// route
+app.use('/', routeconfig);  // 1
+
+//app.use('/signup', routeconfig); // 2
+//app.use('/signin', routeconfig); // 3
+//app.use('/signin/:email', routeconfig); // 3
+//app.use('/product-new', routeconfig); // 4
+//app.use('/product-manage', routeconfig); // 5
+//app.use('/products/list', routeconfig); // 6
+//app.use('/lead/:id', routeconfig);
+//app.use('/products/:productId', routeconfig);
+//app.use('/search-lead/:search?', routeconfig);
+//app.use('/about', routeconfig);
 
 
 // development error handler
@@ -122,12 +121,10 @@ app.use(function (req, res, fn) {
 });
 
 app.use(function (err, req, res, next) {
-
     res.render('shared/error_page', {
         status: err.status || 500
       , error: err
     });
-
 });
 
 module.exports = app;

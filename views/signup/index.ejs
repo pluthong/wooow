@@ -31,6 +31,8 @@
 								<span id="gen_error"></span>
 							</div>
 
+							 <input type="hidden" name="err_mess" id="err_mess" value="<%= typeof errorMessage != "undefined" ? errorMessage : "" %>" />
+
 							<div class="form-group">
 								<label for="last_name">First name</label>
 								<input type="text" id="first_name" name="first_name" class="form-control input-lg" placeholder="Fist name">

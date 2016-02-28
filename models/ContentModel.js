@@ -10,7 +10,6 @@ var ContentModel = model.extend({
     },
 
     update: function (data, id, cb) {
-
         mysql.updatedata(data, id, cb);
     },
 
@@ -23,12 +22,9 @@ var ContentModel = model.extend({
         selectquery += " name, description, category, productImageUrl, price FROM products ";
         selectquery += "WHERE   productCustomerId = '" + custid + "'";
         selectquery += "LIMIT " + offset + "," + items_per_page;
-
-        console.log(selectquery);
-
         var selectCount = "SELECT COUNT(1) AS total FROM products WHERE   productCustomerId = '" + custid + "'";
 
-        return mysql.getcollection(page, items_per_page, selectquery, selectCount, cb);
+        return mysql.getcollection(selectquery, selectCount, cb);
     },
 
 	getlead: function (id,cb) {

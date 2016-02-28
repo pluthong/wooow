@@ -1,5 +1,5 @@
 
- var knex = require('knex')({
+var knex = require('knex')({
     client: 'mysql',
     connection: {
         host: 'localhost',
@@ -10,7 +10,6 @@
     }
 });
 
- var DB = require('bookshelf')(knex);
-
+var DB = require('bookshelf')(knex);
 
 module.exports.DB = DB;

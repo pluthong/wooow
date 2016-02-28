@@ -1,28 +1,61 @@
 ﻿
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
-            <!--Sidebar content-->
-            Search: <input ng-model="query">
-            Sort by:
-            <select ng-model="orderProp">
-                <option value="name">Alphabetical</option>
-                <option value="age">Newest</option>
-            </select>
-
-        </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <!--Body content-->
 
             <ul class="products">
-                <li ng-repeat="product in products | filter:query | orderBy:orderProp"
-                    class="thumbnail product-listing">
-                    <a href="#/products/{{product.productId}}" class="thumb"> <img ng-src="/uploads/{{product.productImageUrl}}" alt="{{product.name}}"></a>
-                    <a href="#/products/{{product.productId}}">{{product.name}}</a>
-                    <p>{{product.description}}</p>
-                </li>
+
+                <div ng-repeat="product in products | filter:query | orderBy:orderProp" class="thumbnail product-listing">
+
+                    <div class="psli" data-docid="{{product.productId}}">
+                        <div class="pslimg" >
+                            <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  data-docid="{{product.productId}}"> <img ng-src="/uploads/{{product.productImageUrl}}" alt="{{product.name}}"></a>
+                        </div>
+                        <div class="pslmain">
+                            <h3 class="r">
+                                <a href="javascript:void(0)" ng-click="showCloseUp(product.productId)" data-docid="{{product.productId}}">{{product.name}}</a>
+                            </h3>
+                            <div class="pslline">
+                                <span class="price">
+                                    <b>{{product.price | currency }}</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pspo-popout" data-docid="{{product.productId}}" style="display: none;">
+                        <div class="pspo-container">
+                            <div class="pspo-sc">
+                                <a href="javascript:void(0)"   ng-click="hideCloseUp(product.productId)"  class="pspo-close"></a>
+
+                                <div class="pspo-ic" style="width:300px">
+                                    <div class="pspo-ilinks pspo-noiw" style="width:300px;height:300px">
+                                        <div class="sh-th__container sh-th__center-container thumbnail" style="width:300px;height:300px">
+                                            <img ng-src="/uploads/{{product.productImageUrl}}" alt="{{product.name}}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pspo-content" style="margin-left:335px;min-height:300px">
+                                    <div class="pspo-title">{{product.name}}</div>
+                                    <p class="sh-ds__desc">
+                                        {{product.description}}
+                                    </p>
+                                    <div class="pspo-ol-price pspo-price-with-merchant"><b>{{product.price | currency }}</b></div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </ul>
 
         </div>
     </div>
 </div>
+
+
+
+
+

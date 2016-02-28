@@ -12,3 +12,46 @@ iexchangeServices.factory('Product', ['$resource',
           query: { method: 'GET', params: { productId: 'list' }, isArray: true }
       });
   }]);
+
+iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http, $q) {
+
+    return {
+
+        getAllProduct: function (data) {
+
+            var deferred = $q.defer();
+
+            $http({
+                url: '/products/list',
+                method: 'GET',
+                withCredentials: false,
+                params: data
+            }).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (ajaxResponse, status, headers, config) {
+                deferred.reject(ajaxResponse);
+            });
+
+            return deferred.promise;
+        },
+
+        getCustomerProduct: function (data) {
+            var deferred = $q.defer();
+
+            $http({
+                url: '/products/customerlist',
+                method: 'GET',
+                withCredentials: false,
+                params: data
+            }).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (ajaxResponse, status, headers, config) {
+                deferred.reject(ajaxResponse);
+            });
+
+            return deferred.promise;
+        }
+
+    };
+
+}]);

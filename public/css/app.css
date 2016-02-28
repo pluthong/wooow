@@ -30,6 +30,7 @@ body {
   clear: both;
   height: 115px;
   padding-top: 15px;
+  border: none;
 }
 
 /** Detail View **/
@@ -54,11 +55,10 @@ ul.product-thumbs {
   list-style: none;
 }
 
-ul.product-thumbs li {
-  border: 1px solid black;
+ul.product-thumbs {
   display: inline-block;
   margin: 1em;
-  background-color: white;
+  background-color: red;
 }
 
 ul.product-thumbs img {

@@ -3,7 +3,7 @@
         <li>
             <span>
                 Shows
-                <select ng-model="local" ng-change="setmain(local)" ng-options="i.pageSize for i in pageSizes"></select>
+                <select ng-model="pageSizeValue" ng-change="selectedItemChanged(pageSizeValue)" ng-options="i.pageSize for i in pageSizes"></select>
                 by page
             </span>
         </li>

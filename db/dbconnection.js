@@ -32,26 +32,26 @@ var mySqlConnection = {
         });
     },
 
-    getcollection: function (currentpage, items_per_page, selectquery, selectcount, callback) {
+    getcollection: function (selectquery, selectcount, callback) {
 
-        conn = mysql.createConnection(credentials);
+            conn = mysql.createConnection(credentials);
 
-        conn.query(selectquery, function (err, rows, fields) {
+            conn.query(selectquery, function (err, rows, fields) {
 
-            mySqlConnection.gettotal(currentpage,items_per_page, rows, selectcount, callback);
+            mySqlConnection.gettotal(rows, selectcount, callback);
 
         });
     },
 
-    gettotal: function (currentpage,items_per_page, data, selectcount, callback) {
+    gettotal: function (data, selectcount, callback) {
 
         conn = mysql.createConnection(credentials);
 
         conn.query(selectcount, function (err, rows, fields) {
             var params = {
                 NumItems: rows[0].total,
-                CurrentP: currentpage,
-                ItemsByPage:items_per_page,
+                //CurrentP: currentpage,
+                //ItemsByPage:items_per_page,
                 data: data
             };
 
@@ -87,7 +87,6 @@ var mySqlConnection = {
     insertdata: function (data, callback) {
 
         conn = mysql.createConnection(credentials);
-        console.log(data);
         conn.query('INSERT INTO walkinlead SET ? ', data, function (err, result) {
 
             if (err) {
