@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS products(
   `productCustomerId` smallint(3) unsigned NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS productImages;
+DROP TABLE IF EXISTS productimages;
 
-CREATE TABLE IF NOT EXISTS productImages(
+CREATE TABLE IF NOT EXISTS productimages(
   `productImageId` smallint(3) unsigned NOT NULL  PRIMARY KEY AUTO_INCREMENT,
   `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `productImageMain` boolean NOT NULL DEFAULT 0,
