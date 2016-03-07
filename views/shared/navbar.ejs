@@ -54,3 +54,27 @@
     <!--/.nav-collapse -->
   </div>
 </nav>
+
+<!-- modal dialog confirm delete product -->
+<div class="modal fade" id="confirm-delete-product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">confirms cancellation</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>You are about to delete a product, this procedure is irreversible.</p>
+        <p>Do you want to continue?</p>
+        <p class="debug-url"></p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <a href="javascript:void(0)" class="btn btn-danger danger confirm-deletion">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,8 @@ iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$timeout', 'P
     $scope.numTotalOfPage = 0;
     $scope.currentPage = 0;
     $scope.totalItems = 0;
+    $scope.message = "";
+
 
     // get customer's product
     $scope.getCustomerProducts = function (func) {
@@ -88,6 +90,31 @@ iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$timeout', 'P
         $scope.selectpageSize = item;
         $scope.getCustomerProducts();
     };
+
+    $scope.deleteProduct = function (id) {
+        $('#confirm-delete-product').data('id', id).modal('show');
+    };
+
+    $('.confirm-deletion').click(function () {
+
+        var id = $('#confirm-delete-product').data('id');
+
+        ProductDataService.deleteProduct(id)
+            .then(function (res) {
+                console.log(res.data.message);
+                $scope.error = res.error;
+                $scope.message = res.data.message;
+                $scope.currentPage = 0;
+                $scope.getCustomerProducts();
+            })
+            .catch(function (err) {
+                $scope.error = err.error;
+                $scope.message = err.data.message;
+            });
+
+        $('#confirm-delete-product').modal('hide');
+    });
+
 }]);
 
 

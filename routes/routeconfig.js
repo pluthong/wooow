@@ -10,7 +10,7 @@ var Model = require('../model');
 //var Home = require('../controllers/Home');
 //var Lead = require('../controllers/Lead');
 //var SaveLead = require('../controllers/SaveLead');
-var SearchLead = require('../controllers/SearchLead');
+//var SearchLead = require('../controllers/SearchLead');
 //var About = require('../controllers/About');
 //var SignIn = require('../controllers/SignIn');
 //var SignUp = require('../controllers/SignUp');
@@ -73,9 +73,9 @@ router.post('/signup', function (req, res, next) {
             var signUpUser = new Model.User({ firstName: user.first_name, lastName: user.last_name, email: user.join_email, password: user.join_password });
 
             signUpUser.save().then(function (model) {
-                // sign in the newly registered user
-                //signInPost(req, res, next);
+
                 res.redirect('/signin/' + user.join_email);
+
             });
         }
     });
@@ -120,7 +120,7 @@ router.post('/signin', function (req, res, next) {
 }); // 3
 
 /* GET signin form after registration */
-// example : http://localhost:3000/signin/:email
+// example : http://localhost:3000/signin/name@gmail.com
 router.get('/signin/:email', function (req, res, next) {
     if (req.isAuthenticated())
         res.redirect('/');
@@ -141,7 +141,7 @@ router.get('/product-new', function (req, res, next) {
 
         res.render('product/create', { user: user });
     } else {
-        res.render('signin/index');
+        res.redirect('/signin');
     }
 });  // 4
 
@@ -176,17 +176,23 @@ router.post('/product-new', upload.any(), function (req, res, next) {
         // var password = user.join_password;
         // var hash = bcrypt.hashSync(password);
 
-        var saveProduct = new Model.Product({ name: product.name, description: product.description, price: product.price, category: product.category, productImageUrl: filename, productCustomerId: customerId });
+        var saveProduct = new Model.Product({ name: product.name, description: product.description, price: product.price, category: product.category, productCustomerId: customerId });
 
-        saveProduct.save().then(function (model) {
-            // sign in the newly registered user
-            //signInPost(req, res, next);
-            res.render('product/create', { successMessage: 'product successfully added', user: user });
+        saveProduct.save().then(function (product) {
+
+            var p = product.toJSON();
+            console.log(filename);
+            var saveProductImageMain = new Model.ProductImage({ productImageMain: 1, productImageUrl: filename, productImageProductId: p.productId });
+
+            saveProductImageMain.save().then(function (productImage) {
+
+                res.render('product/create', { successMessage: 'product successfully added', user: user });
+
+            });
         });
-        // }
     }
     else {
-        res.render('signin/index');
+        res.redirect('/signin');
     }
 }); // 4
 
@@ -195,9 +201,16 @@ router.post('/product-new', upload.any(), function (req, res, next) {
 router.get('/product-manage', function (req, res, next) {
 
     if (req.isAuthenticated()) {
-        SearchLead.run(req, res, next);
+        //SearchLead.run(req, res, next);
+        var user = req.user;
+
+        if (user !== undefined) {
+            user = user.toJSON();
+        }
+
+        res.render('manage/index', { user: user });
     } else {
-        res.render('signin/index');
+        res.redirect('/signin');
     }
 }); // 5
 
@@ -214,8 +227,17 @@ router.get('/products/list', function (req, res, next) {
         .then(function (count) {
             new Model.Product()
                 .query({ limit: ITEMS_PER_PAGE, offset: offset })
-                .fetchAll()
+                .fetchAll({
+                    withRelated: ['images'],
+                    debug: true
+                })
                 .then(function (collection) {
+
+                    //collection.forEach(function (e) {
+                    //    console.log(JSON.stringify(e.related('images')));
+                    //});
+
+                    //console.log(collection.toJSON()[0].images);
 
                     var params = {
                         NumItems: count,
@@ -225,6 +247,7 @@ router.get('/products/list', function (req, res, next) {
                     res.end(JSON.stringify(params))
                 });
         });
+
 }); // 6
 
 /* Get JSON customer's list */
@@ -251,8 +274,16 @@ router.get('/products/customerlist', function (req, res, next) {
                 new Model.Product()
                     .where('productCustomerId', customerId)
                     .query({ limit: ITEMS_PER_PAGE, offset: offset })
-                    .fetchAll()
+                    .fetchAll({
+                        withRelated: ['images'],
+                        debug: true
+                    })
                     .then(function (collection) {
+
+                        //collection.forEach(function (e) {
+                        //    console.log(JSON.stringify(e.related('images')));
+                        //});
+
                         var params = {
                             NumItems: count,
                             data: collection
@@ -262,7 +293,7 @@ router.get('/products/customerlist', function (req, res, next) {
                     });
             });
     } else {
-        res.render('signin/index');
+        res.redirect('/signin');
     }
 
 });
@@ -274,6 +305,51 @@ router.get('/signout', function (req, res, next) {
     } else {
         req.logout();
         res.redirect('/');
+    }
+});
+
+/* Get delete product by productId */
+// example : http://localhost:3000/deleteProduct/1
+router.get('/deleteProduct/:id', function (req, res, next) {
+    if (req.isAuthenticated()) {
+
+        Model.Product.forge({ productId: req.params.id })
+            .fetch({ require: true , debug: true})
+            .then(function (product) {
+                var p = product.toJSON();
+                product.destroy()
+                    .then(function () {
+                       
+
+                        Model.ProductImage.forge({ productImageProductId: req.params.id })
+                            .fetch({ require: true })
+                            .then(function (img) {
+
+                                img.destroy()
+                                    .then(function ()
+                                    {
+                                        res.json({ error: false, data: { message: 'Product : "' + p.name + '" successfully deleted' } });
+                                    })
+                                    .catch(function (err) {
+                                        res.status(500).json({ error: true, data: { message: err.message } });
+                                    });
+                            })
+                            .catch(function (err) {
+                                 res.status(500).json({ error: true, data: { message: err.message } });
+                             });
+                    })
+                    .catch(function (err) {
+                        res.status(500).json({
+                            error: true, data: { message: err.message }
+                        });
+                    });
+            })
+            .catch(function (err) {
+                res.status(500).json({ error: true, data: { message: err.message } });
+            });
+    } else {
+
+        res.redirect('/signin');
     }
 });
 

@@ -26,6 +26,15 @@ CREATE TABLE IF NOT EXISTS products(
   `description` varchar(500) DEFAULT NULL,
   `category` varchar(100) NOT NULL,
   `price` decimal(6,2) DEFAULT NULL,
-  `productImageUrl` varchar(200) DEFAULT NULL,
   `productCustomerId` smallint(3) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS productImages;
+
+CREATE TABLE IF NOT EXISTS productImages(
+  `productImageId` smallint(3) unsigned NOT NULL  PRIMARY KEY AUTO_INCREMENT,
+  `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `productImageMain` boolean NOT NULL DEFAULT 0,
+  `productImageUrl` varchar(200) DEFAULT NULL,
+  `productImageProductId` smallint(3) unsigned NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

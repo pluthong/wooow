@@ -32,14 +32,32 @@
 
 				</form>
 
-				<div class="row" ng-controller="CustomerProductCtrl" ng-init="init('<%=search%>')">
+				<div class="row" ng-controller="CustomerProductCtrl" ng-init="init('')">
 
 				<div ng-cloak>
 					
 					<div ng-show="loading">Loading...</div>
 				
 						<div ng-hide="loading">
+
+								<!-- error message in the box -->
+								<div id="errorShow" ng-if="error && message.length > 0"  class="alert alert-danger alert-dismissible fade in" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<span id="gen_error">{{message}}</span>
+								</div>
+
+								<!-- success message in the box -->
+								<div id="successShow"  ng-if="!error && message.length > 0" class="alert alert-success alert-dismissible fade in" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<span id="gen_success">{{message}}</span>
+								</div>
+
 							<div ng-if="totalItems > 0">
+
 								<tps-pagination	label-prev = "prev" 
 												label-succ = "succ" 
 												label-totalitems = "totalItems"
@@ -52,44 +70,7 @@
 												func-nextpage = "nextPage()">
 								</tps-pagination>
 						
-								<table class="table">
-										<thead>
-											<tr>
-												<th>Photo</th>
-												<th>Name</th>
-												<th>Description</th>
-												<th>Category</th>
-												<th>Price</th>
-												<th style="width:100px">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr ng-repeat="p in products">
-												<td>
-													<a href="#">
-														<img src="/uploads/{{p.productImageUrl}}" alt="" width="50" height="50" class="img-rounded">
-													</a>
-												</td>
-												<td>{{p.name}}</td>
-												<td>{{p.description}}</td>
-												<td>{{p.category}}</td>
-												<td>{{p.price}}</td>
-												<td align="left">
-													<a href="#">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</a>
-													|
-													<a href="#">
-														<span class="glyphicon glyphicon-picture"></span>
-													</a>
-													|
-													<a href="#">
-														<span class="glyphicon glyphicon-trash"></span>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-								</table>
+								<div ng-include="'/partials/product-manage.html'"></div>
 
 								<tps-pagination	label-prev = "prev"
 												label-succ = "succ" 
