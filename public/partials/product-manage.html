@@ -1,0 +1,40 @@
+﻿<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in products">
+                <td ng-repeat="i in p.images">
+                    <a href="#">
+                        <img src="/uploads/{{i.productImageUrl}}" ng-if="i.productImageMain = 1" alt="" width="50" height="50" class="img-rounded">
+                    </a>
+                </td>
+                <td>{{p.name}}</td>
+                <td>{{p.description}}</td>
+                <td>{{p.category}}</td>
+                <td>{{p.price | currency}}</td>
+                <td align="left">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    |
+                    <a href="#">
+                        <span class="glyphicon glyphicon-picture"></span>
+                    </a>
+                    |
+                    <a href="javascript:void(0)" ng-click="deleteProduct(p.productId)" data-toggle="modal" data-target="#confirm-delete-product">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
