@@ -1,0 +1,30 @@
+
+	<!-- views/product/image.ejs -->
+
+	<!DOCTYPE html>
+	<html lang="en" ng-app='iexchangeApp'>
+		<head>
+			<% include ../shared/header %>
+			<title>Gallery</title>
+		</head>
+		<body class="container">
+
+			<header>
+				<% include ../shared/navbar %>
+			</header>
+
+			<main ng-cloak>
+
+				<div ng-controller="ProductGalleryCtrl" ng-init="init('<%= typeof id == "undefined" ? "" : id %>')" >
+
+					<div ng-include="'/partials/product-galery.html'"></div>
+
+				</div>
+
+			</main>
+
+			<footer>
+				<% include ../shared/footer %>
+			</footer>
+		</body>
+	</html>

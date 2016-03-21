@@ -7,14 +7,14 @@
                 <th>Description</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th>Action</th>
+                <th style="width:100px">Action</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="p in products">
                 <td ng-repeat="i in p.images">
-                    <a href="#">
-                        <img src="/uploads/{{i.productImageUrl}}" ng-if="i.productImageMain = 1" alt="" width="50" height="50" class="img-rounded">
+                    <a href="/product-gallery/{{p.productId}}" >
+                        <img src="/uploads/{{i.productImageUrl}}"  alt="" width="50" height="50" class="img-rounded">
                     </a>
                 </td>
                 <td>{{p.name}}</td>
@@ -22,11 +22,11 @@
                 <td>{{p.category}}</td>
                 <td>{{p.price | currency}}</td>
                 <td align="left">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                     |
-                    <a href="#">
+                    <a href="/product-gallery/{{p.productId}}">
                         <span class="glyphicon glyphicon-picture"></span>
                     </a>
                     |

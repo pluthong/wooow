@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
 
+    launched();
+
+});
+
+
+function lauched() {
+
     var hiddenMessageError = $("#err_mess").val();
 
     var hiddenMessageSuccess = $("#succ_mess").val();
@@ -17,4 +24,5 @@
     } else {
         $("#successShow").hide();
     }
-});
+
+}

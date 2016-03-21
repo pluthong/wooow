@@ -126,3 +126,42 @@ h3.r {
     color: #ddd;
     font-size: 64px;
 }
+
+
+.dim {
+    height: 200px;
+    width: 200px;
+}
+
+.imagewrap {
+    display: inline-block;
+    position: relative;
+
+}
+
+.imagewrap_width {
+    height: 450px;
+    width: 450px;
+    max-height: 450px;
+    max-width: 450px;
+}
+
+.btn-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+}
+
+.btn-main-not {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 60px;
+    right: 0;
+}
+

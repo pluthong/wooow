@@ -17,7 +17,7 @@ var ProductImage = DB.Model.extend({
     tableName: 'productimages',
     idAttribute: 'productImageId',
     product: function () {
-        return this.belongsTo(Product, 'productId');
+        return this.belongsTo(Product, 'productImageProductId');
     }
 });
 

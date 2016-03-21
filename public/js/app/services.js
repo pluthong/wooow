@@ -68,6 +68,57 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             });
 
             return deferred.promise;
+        },
+        deleteImage: function (data) {
+
+            var deferred = $q.defer();
+
+            $http({
+                url: '/deleteImage',
+                method: 'GET',
+                withCredentials: false,
+                params: data
+            }).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (ajaxResponse, status, headers, config) {
+                deferred.reject(ajaxResponse);
+            });
+
+            return deferred.promise;
+        },
+        mainImage: function (data) {
+
+            var deferred = $q.defer();
+
+            $http({
+                url: '/setImageMain',
+                method: 'GET',
+                withCredentials: false,
+                params: data
+            }).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (ajaxResponse, status, headers, config) {
+                deferred.reject(ajaxResponse);
+            });
+
+            return deferred.promise;
+        },
+
+        getProductGallery: function (id) {
+
+            var deferred = $q.defer();
+
+            $http({
+                url: '/api-product-gallery/' + id,
+                method: 'GET',
+                withCredentials: false,
+            }).success(function (res) {
+                deferred.resolve(res);
+            }).error(function (ajaxResponse, status, headers, config) {
+                deferred.reject(ajaxResponse);
+            });
+
+            return deferred.promise;
         }
 
     };

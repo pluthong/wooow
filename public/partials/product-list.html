@@ -10,7 +10,7 @@
 
                     <div class="psli" data-docid="{{product.productId}}">
                         <div class="pslimg" >
-                            <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  data-docid="{{product.productId}}"> <img ng-repeat="i in product.images" ng-if="i.productImageMain = 1"   ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}"></a>
+                            <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  data-docid="{{product.productId}}"> <img ng-repeat="i in product.images" ng-if="i.productImageMain == 1"   ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}"></a>
                         </div>
                         <div class="pslmain">
                             <h3 class="r">
@@ -32,7 +32,7 @@
                                 <div class="pspo-ic" style="width:300px">
                                     <div class="pspo-ilinks pspo-noiw" style="width:300px;height:300px">
                                         <div class="sh-th__container sh-th__center-container thumbnail" style="width:300px;height:300px">
-                                            <img ng-repeat="i in product.images" ng-if="i.productImageMain = 1"  ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}">
+                                            <img ng-repeat="i in product.images" ng-if="i.productImageMain == 1"  ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}">
                                         </div>
                                     </div>
                                 </div>

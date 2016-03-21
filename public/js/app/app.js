@@ -11,6 +11,7 @@ var iexchangeApp = angular.module('iexchangeApp', [
     'iexchangeServices'
 ]);
 
+
 //iexchangeApp.config(['$routeProvider', '$locationProvider',
 //  function ($routeProvider, $locationProvider) {
 //      $routeProvider.

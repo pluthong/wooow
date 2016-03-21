@@ -140,13 +140,15 @@ router.get('/product-new', function (req, res, next) {
         }
 
         res.render('product/create', { user: user });
+
     } else {
+
         res.redirect('/signin');
     }
 });  // 4
 
 /* POST form new product */
-// example : http://localhost:3000/lead/save-lead
+// example : http://localhost:3000/product-new
 router.post('/product-new', upload.any(), function (req, res, next) {
 
     if (req.isAuthenticated()) {
@@ -181,7 +183,6 @@ router.post('/product-new', upload.any(), function (req, res, next) {
         saveProduct.save().then(function (product) {
 
             var p = product.toJSON();
-            console.log(filename);
             var saveProductImageMain = new Model.ProductImage({ productImageMain: 1, productImageUrl: filename, productImageProductId: p.productId });
 
             saveProductImageMain.save().then(function (productImage) {
@@ -228,8 +229,7 @@ router.get('/products/list', function (req, res, next) {
             new Model.Product()
                 .query({ limit: ITEMS_PER_PAGE, offset: offset })
                 .fetchAll({
-                    withRelated: ['images'],
-                    debug: true
+                    withRelated: ['images']
                 })
                 .then(function (collection) {
 
@@ -275,8 +275,12 @@ router.get('/products/customerlist', function (req, res, next) {
                     .where('productCustomerId', customerId)
                     .query({ limit: ITEMS_PER_PAGE, offset: offset })
                     .fetchAll({
-                        withRelated: ['images'],
-                        debug: true
+                        withRelated: ['images', {
+                            'images': function (qb) {
+                                // qb is a reference to the query builder, so you can use all its methods here
+                                qb.where('productImageMain', 1);
+                            }
+                        }]
                     })
                     .then(function (collection) {
 
@@ -314,20 +318,18 @@ router.get('/deleteProduct/:id', function (req, res, next) {
     if (req.isAuthenticated()) {
 
         Model.Product.forge({ productId: req.params.id })
-            .fetch({ require: true , debug: true})
+            .fetch({ require: true })
             .then(function (product) {
                 var p = product.toJSON();
                 product.destroy()
                     .then(function () {
-                       
 
                         Model.ProductImage.forge({ productImageProductId: req.params.id })
                             .fetch({ require: true })
                             .then(function (img) {
 
                                 img.destroy()
-                                    .then(function ()
-                                    {
+                                    .then(function () {
                                         res.json({ error: false, data: { message: 'Product : "' + p.name + '" successfully deleted' } });
                                     })
                                     .catch(function (err) {
@@ -335,8 +337,8 @@ router.get('/deleteProduct/:id', function (req, res, next) {
                                     });
                             })
                             .catch(function (err) {
-                                 res.status(500).json({ error: true, data: { message: err.message } });
-                             });
+                                res.status(500).json({ error: true, data: { message: err.message } });
+                            });
                     })
                     .catch(function (err) {
                         res.status(500).json({
@@ -353,11 +355,150 @@ router.get('/deleteProduct/:id', function (req, res, next) {
     }
 });
 
-/* Get search view for lead */
-// example : http://localhost:3000/search-lead/search?word=example
-//router.get('/search-lead/:search?', function (req, res, next) {
-//    SearchLead.run(req, res, next);
-//});
+/* Get delete image */
+// example : http://localhost:3000/deleteImage
+router.get('/deleteImage', function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        var productId = req.query.productId;
+        var imageId = req.query.imageId;
+
+        Model.ProductImage
+            .forge({ productImageProductId: productId, productImageId: imageId })
+            .fetch({ require: true })
+            .then(function (img) {
+                img.destroy()
+                    .then(function () {
+                        res.json({ error: false, data: { message: 'Image successfully deleted' } });
+                    })
+                    .catch(function (err) {
+                        res.status(500).json({ error: true, data: { message: err.message } });
+                    });
+            })
+            .catch(function (err) {
+                res.status(500).json({ error: true, data: { message: err.message } });
+            });
+
+    } else {
+        res.redirect('/signin');
+    }
+
+});
+
+/* Get delete image */
+// example : http://localhost:3000/setImageMain
+router.get('/setImageMain', function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        var productId = req.query.productId;
+        var imageId = req.query.imageId;
+
+        // select * from productimages where productImageProductId = 4 and productImageMain = 1
+        new Model.ProductImage({ productImageProductId: productId, productImageMain: 1 })
+            .fetch()
+            .then(function (model) {
+                var img = model.toJSON();
+                new Model.ProductImage({ productImageId: img.productImageId })
+                    .save({ productImageMain: 0 }, { patch: true })
+                    .then(function (model) {
+                        new Model.ProductImage({ productImageId: imageId })
+                            .save({ productImageMain: 1 }, { patch: true })
+                            .then(function (model) {
+                                res.json({ error: false, data: { message: 'Image successfully set to main' } });
+                            })
+                            .catch(function (err) {
+                                res.status(500).json({ error: true, data: { message: err.message } });
+                            });
+                    })
+                    .catch(function (err) {
+                        res.status(500).json({ error: true, data: { message: err.message } });
+                    });
+            });
+    } else {
+        res.redirect('/signin');
+    }
+
+});
+
+/* GET FORM product gallery */
+// example : http://localhost:3000/product-gallery/2
+router.get('/product-gallery/:id', function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        var user = req.user;
+
+        if (user !== undefined) {
+            user = user.toJSON();
+        }
+
+        res.render('product/gallery', { user: user, id: req.params.id });
+
+    } else {
+        res.redirect('/signin');
+    }
+});  // 4
+
+
+/* POST form new product image */
+// example : http://localhost:3000/product-gallery
+router.post('/product-gallery', upload.any(), function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        var user = req.user;
+
+        if (user !== undefined) {
+            user = user.toJSON();
+        }
+
+        var reqbody = JSON.parse(JSON.stringify(req.body));
+
+        var filename = req.files[0] ? req.files[0].filename : '';
+
+        var saveProductImageMain = new Model.ProductImage({ productImageMain: 0, productImageUrl: filename, productImageProductId: reqbody.hiddenproduct });
+
+        saveProductImageMain.save().then(function (productImage) {
+
+            res.redirect('/product-gallery/' + reqbody.hiddenproduct);
+
+        });
+    }
+    else {
+        res.redirect('/signin');
+    }
+}); // 4
+
+
+/* GET JSON product gallery */
+// example : http://localhost:3000/api-product-gallery/3
+router.get('/api-product-gallery/:id', function (req, res, next) {
+
+    if (req.isAuthenticated()) {
+
+        new Model.ProductImage()
+            .where('productImageProductId', req.params.id)
+            .fetchAll({
+                withRelated: ['product']
+            })
+            .then(function (images) {
+
+                var params = {
+                    data: images
+                };
+
+                res.end(JSON.stringify(params))
+            })
+            .catch(function (err) {
+                res.status(500).json({ error: true, data: { message: err.message } });
+            });
+
+    } else {
+        res.redirect('/signin');
+    }
+});  // 4
 
 
 module.exports = router;

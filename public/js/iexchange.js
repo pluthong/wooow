@@ -1,6 +1,9 @@
 ﻿
 $(document).ready(function () {
 
+    // initializing bootstrap's tooltip 
+    $('body').tooltip({ selector: '[data-toggle=tooltip]' });
+
     var today = new Date();
 
     document.getElementById("currYear").textContent = today.getFullYear();
