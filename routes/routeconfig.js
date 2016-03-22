@@ -85,7 +85,7 @@ router.post('/signup', function (req, res, next) {
 // example : http://localhost:3000/signin
 router.get('/signin', function (req, res, next) {
     if (req.isAuthenticated())
-        res.redirect('/');
+        res.redirect('/product-manage');
     else
         res.render('signin/index');
 }); // 3
@@ -97,7 +97,7 @@ router.post('/signin', function (req, res, next) {
     passport.authenticate(
    'local',
    {
-       successRedirect: '/',
+       successRedirect: '/product-manage',
        failureRedirect: '/signin'
    },
    function (err, user, info) {
@@ -113,7 +113,7 @@ router.post('/signin', function (req, res, next) {
            if (err) {
                return res.render('signin', { title: 'Sign In', errorMessage: err.message });
            } else {
-               return res.redirect('/');
+               return res.redirect('/product-manage');
            }
        });
    })(req, res, next);
@@ -123,7 +123,7 @@ router.post('/signin', function (req, res, next) {
 // example : http://localhost:3000/signin/name@gmail.com
 router.get('/signin/:email', function (req, res, next) {
     if (req.isAuthenticated())
-        res.redirect('/');
+        res.redirect('/product-manage');
     else
         res.render('signin/index', { view_email: req.params.email });
 }); // 3

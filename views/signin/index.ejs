@@ -6,60 +6,51 @@
 <head>
     <% include ../shared/header %>
 	<title>Sign In</title>
-	<style>
-		body    { margin:50px; }
-	</style>
 </head>
-<body>
+<body class="container">
 
 		<header>
 			<% include ../shared/navbar %>
 		</header>
 
-		<!-- form login -->
-		<div id="loginModal" class="show" tabindex="-1" role="dialog" aria-hidden="false">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h1 class="text-center">Sign In</h1>
-					</div>
-					<div class="modal-body">
-						<form method="POST" action="/signin" onsubmit="return validationSignInForm()" class="form center-block">
 
-							<!-- error message in the box -->
-							<div id="errorShow" style="display:none" class="alert alert-danger alert-dismissible fade in" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<span id="gen_error"></span>
-							</div>
+		<form  method="POST" action="/signin" onsubmit="return validationSignInForm()" >
+			<h1 class="well">Sing In</h1>
 
-						    <input type="hidden" name="err_mess" id="err_mess" value="<%= typeof errorMessage != "undefined" ? errorMessage : "" %>" />
+			<!-- error message in the box -->
+			<div id="errorShow" style="display:none" class="alert alert-danger alert-dismissible fade in" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span id="gen_error"></span>
+			</div>
 
-							<div class="form-group">
-								<input type="text" id="join_email" name="join_email" class="form-control input-lg" value="<%= typeof view_email == "undefined" ? "" : view_email %>" placeholder="Email">
-							</div>
-							<div class="form-group">
-								<input type="password"  id="join_password" name="join_password" class="form-control input-lg" placeholder="Password">
-							</div>
-							<div class="form-group">
-								<button class="btn btn-primary btn-lg btn-block">Sign In</button>
-								<span class="pull-right"><a href="/signup">Register</a></span><span><a href="#">Need help?</a></span>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<div class="col-md-12">
-							<a href="/">Cancel</a>
+			<input type="hidden" name="err_mess" id="err_mess" value="<%= typeof errorMessage != "undefined" ? errorMessage : "" %>" />
+
+			<div class="col-lg-12 well">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label>Email Address</label>
+							<input type="text" id="join_email" name="join_email" value="<%= typeof view_email == "undefined" ? "" : view_email %>" placeholder="Enter Email Address Here.." class="form-control input-lg">
+						</div>	
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" id="join_password" name="join_password" placeholder="Enter Password Here.." class="form-control input-lg">
+						</div>
+						<button class="btn btn-lg btn-info">Sign In</button>	
+						<a href="/" class="btn btn-lg btn-info pull-right" role="button">Cancel</a>
+						<div class="form-group">	
+							<span class="pull-right"><a href="/signup">Register</a></span><span><a href="#">Need help?</a></span>	
 						</div>	
 					</div>
-				</div> 
+				</div>
 			</div>
-			<footer>
-				<% include ../shared/footer %>
-			</footer>
-		</div>
+		</form> 
+
+		<footer>
+			<% include ../shared/footer %>
+		</footer>
 	
 	</body>
 </html>

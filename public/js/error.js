@@ -1,11 +1,9 @@
 ﻿$(document).ready(function () {
-
     launched();
-
 });
 
 
-function lauched() {
+function launched() {
 
     var hiddenMessageError = $("#err_mess").val();
 

@@ -4,8 +4,8 @@
     var joinemail = document.getElementById("join_email").value;
     var joinpassword = document.getElementById("join_password").value;
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-    $("#errorShow").hide()
-
+    $("#errorShow").hide();
+ 
     if (!firstname) {
         $("#errorShow").show();
         document.getElementById('first_name').style.borderColor = "red";

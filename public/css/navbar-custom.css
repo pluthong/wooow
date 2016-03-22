@@ -5,6 +5,22 @@
     border-bottom: solid 1px #f1f1f1;
 }
 
+/* add custom navbar-toggle */
+.navbar-custom .navbar-toggle {
+  border-left-color: green;
+   border-top-color: red;
+   border-right-color: gold;
+  border-bottom-color: blue;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+  background-color: black; /* Changes regular toggle color */
+}
+
+.navbar-custom .navbar-toggle .icon-bar:hover {
+  background-color: black; /* Changes toggle color on hover */
+}
+
     .navbar-custom .navbar-nav > li > a {
         color: #000;
     }
