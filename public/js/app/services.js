@@ -2,27 +2,24 @@
 
 /* Services */
 
-var iexchangeServices = angular.module('iexchangeServices', ['ngResource']);
+var wooowSrv = angular.module('wooowServices', ['ngResource']);
 
 // $resource(url, [paramDefaults], [actions], options);
 
-iexchangeServices.factory('Product', ['$resource',
+wooowSrv.factory('Product', ['$resource',
   function ($resource) {
       return $resource('products/:productId', {}, {
           query: { method: 'GET', params: { productId: 'list' }, isArray: true }
       });
   }]);
 
-iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http, $q) {
-
+wooowSrv.factory('ProductDataService', ['$http', '$q', function ($http, $q) {
     return {
 
         getAllProduct: function (data) {
-
             var deferred = $q.defer();
-
             $http({
-                url: '/products/list',
+                url: '/product/allMainImageOnly',
                 method: 'GET',
                 withCredentials: false,
                 params: data
@@ -31,16 +28,13 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         },
 
-        getCustomerProduct: function (data) {
-
+        getAllProductImageMain: function (data) {
             var deferred = $q.defer();
-
             $http({
-                url: '/products/customerlist',
+                url: '/product/oauth/allMainImageOnly',
                 method: 'GET',
                 withCredentials: false,
                 params: data
@@ -49,14 +43,11 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         },
-
+        
         deleteProduct: function (id) {
-
             var deferred = $q.defer();
-
             $http({
                 url: '/deleteProduct/' + id,
                 method: 'GET',
@@ -66,13 +57,11 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         },
+
         deleteImage: function (data) {
-
             var deferred = $q.defer();
-
             $http({
                 url: '/deleteImage',
                 method: 'GET',
@@ -83,13 +72,11 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         },
+
         mainImage: function (data) {
-
             var deferred = $q.defer();
-
             $http({
                 url: '/setImageMain',
                 method: 'GET',
@@ -100,14 +87,11 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         },
 
         getProductGallery: function (id) {
-
             var deferred = $q.defer();
-
             $http({
                 url: '/api-product-gallery/' + id,
                 method: 'GET',
@@ -117,7 +101,6 @@ iexchangeServices.factory('ProductDataService', ['$http', '$q', function ($http,
             }).error(function (ajaxResponse, status, headers, config) {
                 deferred.reject(ajaxResponse);
             });
-
             return deferred.promise;
         }
 

@@ -1,4 +1,4 @@
-﻿var iexchangeAnimations = angular.module('iexchangeAnimations', ['ngAnimate']);
+﻿var iexchangeAnimations = angular.module('wooowAnimations', ['ngAnimate']);
 
 iexchangeAnimations.animation('.product', function () {
 

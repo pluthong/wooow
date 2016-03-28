@@ -45,22 +45,20 @@ img.product {
   display: none;
 }
 
-img.product:first-child {
+div.container-div{
+   clear: both;
+}
+
+ul.product-thumbs {
+  margin: 0px;
+  padding: 0px;
   display: block;
+  list-style-type: none;
 }
 
-
-ul.product-thumbs {
-  margin: 0;
-  list-style: none;
+ul.product-thumbs li {
+  display: inline;
 }
-
-ul.product-thumbs {
-  display: inline-block;
-  margin: 1em;
-  background-color: red;
-}
-
 ul.product-thumbs img {
   height: 100px;
   width: 100px;
@@ -70,7 +68,6 @@ ul.product-thumbs img {
 ul.product-thumbs img:hover {
   cursor: pointer;
 }
-
 
 ul.specs {
   clear: both;

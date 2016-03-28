@@ -13,7 +13,6 @@ h3.r {
     font-weight: normal;
 }
 
-
 .pslmain h3 {
     line-height: 20px;
     max-width: 580px;
@@ -36,6 +35,7 @@ h3.r {
 .pspo-popout {
     border: #bebebe solid 1px;
     box-shadow: 0 2px 1px rgba(0,0,0,.1),0 0 1px rgba(0,0,0,0.1);
+    margin-top: 2px;
 }
 
 .pspo-container {
@@ -94,6 +94,7 @@ h3.r {
 .pspo-price-with-merchant b {
     font-size: 20px;
 }
+
 .pspo-ol-price {
     float: left;
     font-size: 13px;
@@ -127,16 +128,14 @@ h3.r {
     font-size: 64px;
 }
 
-
 .dim {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
 }
 
 .imagewrap {
     display: inline-block;
     position: relative;
-
 }
 
 .imagewrap_width {

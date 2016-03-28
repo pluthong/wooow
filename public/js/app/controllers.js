@@ -2,12 +2,11 @@
 
 /* Controllers */
 
-var iexchangeControllers = angular.module('iexchangeControllers', []);
-
+var wooowCtrl = angular.module('wooowControllers', []);
 
 /* Product Controller */
 
-iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$timeout', 'ProductDataService',
+wooowCtrl.controller('CustomerProductCtrl', ['$scope', '$timeout', 'ProductDataService',
 
     function ($scope, $timeout, ProductDataService) {
 
@@ -41,7 +40,7 @@ iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$timeout', 'P
 
             var data = { search: $scope.search, page: ($scope.currentPage + 1), itemsByPage: $scope.selectpageSize.pageSize };
 
-            ProductDataService.getCustomerProduct(data)
+            ProductDataService.getAllProductImageMain(data)
             .then(function (res) {
 
                 $scope.products = res.data;
@@ -117,24 +116,22 @@ iexchangeControllers.controller('CustomerProductCtrl', ['$scope', '$timeout', 'P
 
     }]);
 
-
 //iexchangeControllers.controller('ProductListCtrl', ['$scope', 'Product',
 //  function ($scope, Product) {
 //      $scope.products = Product.query();
 //      $scope.orderProp = 'age';
 //  }]);
 
-
-iexchangeControllers.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Product',
+wooowCtrl.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Product',
   function ($scope, $routeParams, Product) {
       $scope.product = Product.get({ productId: $routeParams.productId }, function (product) {
       });
   }]);
 
 
-iexchangeControllers.controller('ProductListCtrl', ['$scope', '$timeout', 'ProductDataService',
+wooowCtrl.controller('ProductListCtrl', ['$scope', '$anchorScroll', '$timeout', 'ProductDataService',
 
-    function ($scope, $timeout, ProductDataService) {
+    function ($scope, $anchorScroll, $timeout, ProductDataService) {
 
         // data initialisation
         $scope.init = function (wd) {
@@ -216,21 +213,21 @@ iexchangeControllers.controller('ProductListCtrl', ['$scope', '$timeout', 'Produ
             $scope.getProducts();
         };
 
-        $scope.showCloseUp = function (id) {
+        $scope.showCloseUp = function (pid) {
             $(".pspo-popout").hide();
             $(".psli").show();
-            $(".psli[data-docid='" + id + "']").hide();
-            $(".pspo-popout[data-docid='" + id + "']").show();
+            $(".psli[tps-pid='" + pid + "']").hide();
+            $(".pspo-popout[tps-pid='" + pid + "']").show();
         };
 
-        $scope.hideCloseUp = function (id) {
-            $(".pspo-popout[data-docid='" + id + "']").hide();
-            $(".psli[data-docid='" + id + "']").show();
+        $scope.hideCloseUp = function (pid) {
+            $(".pspo-popout[tps-pid='" + pid + "']").hide();
+            $(".psli[tps-pid='" + pid + "']").show();
         };
     }]);
 
 
-iexchangeControllers.controller('ProductGalleryCtrl', ['$scope', '$anchorScroll', 'ProductDataService',
+wooowCtrl.controller('ProductGalleryCtrl', ['$scope', '$anchorScroll', 'ProductDataService',
 
 
     function ($scope, $anchorScroll, ProductDataService) {
@@ -271,9 +268,10 @@ iexchangeControllers.controller('ProductGalleryCtrl', ['$scope', '$anchorScroll'
         }
 
         // focus image ...
-        $scope.focusImage = function (image) {
+        $scope.focusImage = function (image,none) {
             $scope.photo.currentImage = image;
-            $anchorScroll();
+            if(!none)
+                $anchorScroll();
         };
 
         // principal image ...
@@ -287,7 +285,6 @@ iexchangeControllers.controller('ProductGalleryCtrl', ['$scope', '$anchorScroll'
                     $scope.error = res.error;
                     $scope.message = res.data.message;
                     $scope.gallery();
-                    launched();
                 })
                 .catch(function (err) {
                     $scope.error = err.error;

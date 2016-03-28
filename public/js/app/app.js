@@ -2,13 +2,13 @@
 
 /* App Module */
 
-var iexchangeApp = angular.module('iexchangeApp', [
+var wooowApp = angular.module('wooowApp', [
     'ngRoute',
-    'iexchangeAnimations',
-    'iexchangeControllers',
-    'iexchangeDirectives',
-    'iexchangeFilters',
-    'iexchangeServices'
+    'wooowAnimations',
+    'wooowControllers',
+    'wooowDirectives',
+    'wooowFilters',
+    'wooowServices'
 ]);
 
 

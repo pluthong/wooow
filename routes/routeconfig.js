@@ -215,9 +215,9 @@ router.get('/product-manage', function (req, res, next) {
     }
 }); // 5
 
-/* GET JSON all product */
-// example : http://localhost:3000/products/list
-router.get('/products/list', function (req, res, next) {
+/* GET JSON all product only load image main */
+// example : http://localhost:3000/product/allMainImageOnly
+router.get('/product/allMainImageOnly', function (req, res, next) {
 
     var PAGINATION_LIMIT = req.query.page;
     var ITEMS_PER_PAGE = req.query.itemsByPage;
@@ -229,8 +229,13 @@ router.get('/products/list', function (req, res, next) {
             new Model.Product()
                 .query({ limit: ITEMS_PER_PAGE, offset: offset })
                 .fetchAll({
-                    withRelated: ['images']
-                })
+                        withRelated: ['images', {
+                            'images': function (qb) {
+                                // qb is a reference to the query builder, so you can use all its methods here
+                                qb.where('productImageMain', 1);
+                            }
+                        }]
+                    })
                 .then(function (collection) {
 
                     //collection.forEach(function (e) {
@@ -250,9 +255,9 @@ router.get('/products/list', function (req, res, next) {
 
 }); // 6
 
-/* Get JSON customer's list */
-// example : http://localhost:3000/products/customerlist
-router.get('/products/customerlist', function (req, res, next) {
+/* Get JSON customer's list only load image main */
+// example : http://localhost:3000/product/oauth/allMainImageOnly
+router.get('/product/oauth/allMainImageOnly', function (req, res, next) {
 
     if (req.isAuthenticated()) {
 
@@ -309,6 +314,33 @@ router.get('/signout', function (req, res, next) {
     } else {
         req.logout();
         res.redirect('/');
+    }
+});
+
+/* Get  product by productId */
+// example : http://localhost:3000/product/1
+router.get('product/:id', function (req, res, next) {
+    if (req.isAuthenticated()) {
+
+        Model.Product.forge({ productId: req.params.id })
+             .fetchAll({
+                        withRelated: 'images'
+                        })
+             .then(function (product) {
+
+                //collection.forEach(function (e) {
+                //    console.log(JSON.stringify(e.related('images')));
+                //});
+
+                var params = {
+                    data: product
+                };
+
+                res.end(JSON.stringify(params))
+            });
+
+    } else {
+        res.redirect('/signin');
     }
 });
 
@@ -476,7 +508,7 @@ router.post('/product-gallery', upload.any(), function (req, res, next) {
 // example : http://localhost:3000/api-product-gallery/3
 router.get('/api-product-gallery/:id', function (req, res, next) {
 
-    if (req.isAuthenticated()) {
+  //  if (req.isAuthenticated()) {
 
         new Model.ProductImage()
             .where('productImageProductId', req.params.id)
@@ -495,9 +527,9 @@ router.get('/api-product-gallery/:id', function (req, res, next) {
                 res.status(500).json({ error: true, data: { message: err.message } });
             });
 
-    } else {
-        res.redirect('/signin');
-    }
+ //   } else {
+     //   res.redirect('/signin');
+   // }
 });  // 4
 
 

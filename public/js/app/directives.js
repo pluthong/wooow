@@ -2,9 +2,9 @@
 
 /* Custom directive tpsPagination */
 
-var iexchangeDirectives = angular.module("iexchangeDirectives", []);
+var wooowDir = angular.module("wooowDirectives", []);
 
-iexchangeDirectives.directive('tpsPagination', function () {
+wooowDir.directive('tpsPagination', function () {
     return {
         restrict: 'E',
         scope: {
@@ -23,7 +23,6 @@ iexchangeDirectives.directive('tpsPagination', function () {
         link: function (scope, element, attrs) {
 
             scope.$on("DATAREADY", function () {
-
                 scope.selectedItemChanged = function (item) {
                     scope.funcSelectedItemChanged({ ItemChanged: item });
                 };
@@ -36,6 +35,7 @@ iexchangeDirectives.directive('tpsPagination', function () {
                     scope.funcNextpage();
                 };
             });
+            
         }
     };
 });

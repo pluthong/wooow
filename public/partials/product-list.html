@@ -7,14 +7,14 @@
             <ul class="products">
 
                 <div ng-repeat="product in products | filter:query | orderBy:orderProp" class="thumbnail product-listing">
-
-                    <div class="psli" data-docid="{{product.productId}}">
+                    <div class="psli" tps-pid="{{product.productId}}">
                         <div class="pslimg" >
-                            <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  data-docid="{{product.productId}}"> <img ng-repeat="i in product.images" ng-if="i.productImageMain == 1"   ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}"></a>
+                            <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  tps-pid="{{product.productId}}"> 
+                            <img ng-src="/uploads/{{product.images[0].productImageUrl}}" alt="{{product.name}}"></a>
                         </div>
                         <div class="pslmain">
                             <h3 class="r">
-                                <a href="javascript:void(0)" ng-click="showCloseUp(product.productId)" data-docid="{{product.productId}}">{{product.name}}</a>
+                                <a href="javascript:void(0)" ng-click="showCloseUp(product.productId)" tps-pid="{{product.productId}}">{{product.name}}</a>
                             </h3>
                             <div class="pslline">
                                 <span class="price">
@@ -24,25 +24,35 @@
                         </div>
                     </div>
 
-                    <div class="pspo-popout" data-docid="{{product.productId}}" style="display: none;">
-                        <div class="pspo-container">
+                    <div class="pspo-popout" tps-pid="{{product.productId}}" style="display: none;">
+                        <div class="pspo-container" ng-controller="ProductGalleryCtrl" ng-init="init(product.productId)">
                             <div class="pspo-sc">
-                                <a href="javascript:void(0)"  ng-click="hideCloseUp(product.productId)"  class="pspo-close"></a>
+                                <a href="javascript:void(0)"  ng-click="hideCloseUp(photo[0].product.productId)"  class="pspo-close"></a>
 
-                                <div class="pspo-ic" style="width:300px">
+                                <div class="pspo-ic" style="width:300px;">
                                     <div class="pspo-ilinks pspo-noiw" style="width:300px;height:300px">
                                         <div class="sh-th__container sh-th__center-container thumbnail" style="width:300px;height:300px">
-                                            <img ng-repeat="i in product.images" ng-if="i.productImageMain == 1"  ng-src="/uploads/{{i.productImageUrl}}" alt="{{product.name}}">
+                                            <img src="/uploads/{{photo.currentImage.productImageUrl}}" alt="{{photo[0].product.name}}">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="pspo-content" style="margin-left:335px;min-height:300px">
-                                    <div class="pspo-title">{{product.name}}</div>
+                                    <div class="pspo-title">{{photo[0].product.name}}</div>
                                     <p class="sh-ds__desc">
-                                        {{product.description}}
+                                        {{photo[0].product.description}}
                                     </p>
-                                    <div class="pspo-ol-price pspo-price-with-merchant"><b>{{product.price | currency }}</b></div>
+                                    <div class="pspo-ol-price pspo-price-with-merchant">
+                                        <b>{{photo[0].product.price | currency }}</b>
+                                    </div>
+
+                                    <div class="container-div">
+                                        <ul class="product-thumbs">
+                                            <li ng-repeat="img in photo">
+                                                <img src="/uploads/{{img.productImageUrl}}" alt="" ng-click="focusImage(img,true)">
+                                            </li>
+                                        </ul>
+                                    </div>
                                </div>
                             </div>
                         </div>
