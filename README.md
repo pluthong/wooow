@@ -6,3 +6,13 @@ I created an online product catalog that customer can browse by category and pag
 If you want to take a look at my application at http://107.170.84.207/signin and enter
 Email : user@mail.com and 
 Password: secret
+## Features
+###Home features
+![Home Features](http://i.imgur.com/N6bQvaf.png)
+###Manage Catalog features
+![Manage catalog Features](http://i.imgur.com/ugauHkP.png)
+###Manage Image gallery features
+![Manage catalog Features](http://i.imgur.com/witZE6f.png)
+
+
+
