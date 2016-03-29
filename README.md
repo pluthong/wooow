@@ -14,5 +14,9 @@ Password: secret
 ###Manage Image gallery features
 ![Manage catalog Features](http://i.imgur.com/witZE6f.png)
 
+## License
+Copyright (c) 2016 Paul Stephan Thong Thong
+Licensed under the MIT license.
+
 
 
