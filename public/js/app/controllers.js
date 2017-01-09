@@ -51,9 +51,7 @@ wooowCtrl.controller('CustomerProductCtrl', ['$scope', '$timeout', 'ProductDataS
                 $scope.succ = $scope.currentPage == ($scope.numTotalOfPage - 1) ? $scope.totalItems : (($scope.currentPage + 1) * $scope.selectpageSize.pageSize);
 
                 $timeout(function () {
-                    $scope.$apply(function () {
-                        $scope.$broadcast('DATAREADY');
-                    });
+                    $scope.$broadcast('DATAREADY');
                 }, 1000);
 
                 // run action

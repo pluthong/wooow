@@ -1,8 +1,8 @@
 {
-  "name": "iexchange",
-  "description": "a starter project for iexchange",
+  "name": "wooow",
+  "description": "a starter project for WoooW",
   "version": "0.0.0",
-  "homepage": "https://github.com/pluthong/iexchange",
+  "homepage": "https://github.com/pluthong/wooow",
   "license": "MIT",
   "dependencies": {
     "angular": "1.4.x",

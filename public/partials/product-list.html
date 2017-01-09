@@ -1,4 +1,4 @@
-﻿
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -7,11 +7,14 @@
             <ul class="products">
 
                 <div ng-repeat="product in products | filter:query | orderBy:orderProp" class="thumbnail product-listing">
+                
                     <div class="psli" tps-pid="{{product.productId}}">
+
                         <div class="pslimg" >
                             <a href="javascript:void(0)" class="thumb" ng-click="showCloseUp(product.productId)"  tps-pid="{{product.productId}}"> 
                             <img ng-src="/uploads/{{product.images[0].productImageUrl}}" alt="{{product.name}}"></a>
                         </div>
+
                         <div class="pslmain">
                             <h3 class="r">
                                 <a href="javascript:void(0)" ng-click="showCloseUp(product.productId)" tps-pid="{{product.productId}}">{{product.name}}</a>
